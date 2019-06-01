@@ -29,9 +29,57 @@ Look through the application code. If you have the old Lambda Times (Applied Jav
 ## Self-Study/Essay Questions
 
 - [ ] What are PropTypes used for? Please describe why it's important to type check our data in JavaScript.
+
+PropTypes are used to make sure the data being passed around to components is of the right type. If your data is set up in a certain way where you expect a particular type and you passed a piece of data that doesn't match that type, it will create an issue or bug in your application.
+
 - [ ] Describe a life-cycle event in React?
+
+ComponentDidMount is part of the mounting phase of the React Lifecycle.  It is called when the render method is called for the first time.  ComponentDidMount will re-render your component when you call setState. This method is the ideal place to make calls to fetch/get data from an API using HTTP and AJAX.
+
 - [ ] Explain the details of a Higher Order Component?
+
+A Hight Order Component(HOC) is a React Pattern that has the ability to reuse component logic. It receives a component as an argument and returns a slightly modified component.  To create a HOC, you create a function with a single argument which will be the function. Then, you create an anonymous class component with a constructor and super() and bring in props to both.  Then set the state inside the constructor. Create the render method and then call the argument as a component. For example:
+
+```javascript 
+
+import React, {Component} from 'react';
+
+const TitleH1 = props => <h1>{props.title}</h1>
+
+
+// Higher Order Component (HOC)
+const hocComp = (WrapperComp) => class extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: "Yo, here it is!"
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <WrapperComp {...this.state}/>
+            </div>
+        )
+    }
+}
+
+// Setting variable to call as component
+const HOCTitle = hocComp(TitleH1);
+
+const App = () => {
+    return (
+        // HOC component to be rendered
+        <HOCTitle />
+    );
+}
+
+```
+
 - [ ] What are three different ways to style components in React? Explain some of the benefits of each.
+
+The three ways of styling components in React are using a library like Reactstrap, using styled-components, and plain old CSS.  With Reactstrap, you are able to access prebuilt components that were build using the Bootstrap library. With styled-components, you can style your components using CSS in JS. The styled-components library uses tagged template literal, a recently added feature in JavaScript that allows you to call functions using backticks. With plain CSS, you create your components as usual and add a class using the keyword 'className' and import the CSS file.
 
 ## Project Setup
 
